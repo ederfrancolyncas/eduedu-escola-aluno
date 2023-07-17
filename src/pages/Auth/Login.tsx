@@ -26,25 +26,13 @@ export function LoginPage() {
         { name: 'Helena Ramos', registerNumber: '109283746512' },
         { name: 'Igor Ferreira', registerNumber: '109283746512' },
         { name: 'Janaína Dias', registerNumber: '109283746512' },
-        { name: 'Jonas Oliveira', registerNumber: '109283746512' },
-        { name: 'Luis Henrique', registerNumber: '109283746512' },
-        { name: 'Marcelo Martins', registerNumber: '109283746512' },
-        { name: 'Pedro Oliveira', registerNumber: '109283746512' },
-        { name: 'Rodolfo Ricardo', registerNumber: '109283746512' },
-        { name: 'Rodolfo Dias', registerNumber: '109283746512' },
-        { name: 'Tatiana Martins', registerNumber: '109283746512' },
-        { name: 'Thaís Oliveira', registerNumber: '109283746512' },
-        { name: 'Ulisses Ramos', registerNumber: '109283746512' },
-        { name: 'Vanessa Freitas', registerNumber: '109283746512' },
-        { name: 'Vitor Henrique', registerNumber: '109283746512' },
-        { name: 'Victor Dias', registerNumber: '109283746512' },
     ]
 
     const [step, setStep] = useState(1)
     function nextStep(step) { setStep(step) }
     return (
         <BackgroundImage src={bg} h="100vh" w="100vw">
-            <Center maw={1000} h="100%" mx="auto">
+            <Center maw={1200} h="100%" mx="auto">
                 <Box sx={{ minWidth: "100%" }}>
                     <Flex>
                         {step == 3 &&
@@ -106,7 +94,7 @@ export function LoginPage() {
                     }
                     {step == 3 &&
                         <>
-                            <Card>
+                            <Card py={20} px={40}>
                                 <Grid columns={4}>
                                     {students?.map((student) => (
                                         <Grid.Col span={1} style={{ height: '100%' }}>
@@ -114,11 +102,11 @@ export function LoginPage() {
                                                 style={{
                                                     borderRadius: '12px',
                                                     border: '1px solid #228BE6',
-                                                    padding: '10px'
+                                                    padding: '10px 20px'
                                                 }}
                                             >
-                                                <Text fz="xl" c="blue.6">{student.name}</Text>
-                                                <Text c="dimmed">{student.registerNumber}</Text>
+                                                <Text fz="lg" c="blue.6">{student.name}</Text>
+                                                <Text fz="md" c="dimmed">{student.registerNumber}</Text>
                                             </Box>
                                         </Grid.Col>
                                     ))}
@@ -128,9 +116,13 @@ export function LoginPage() {
                                 </Center>
                             </Card>
                             <Group position="right" mt="20px">
-                                <Button onClick={() => {
-                                    navigate(PATH.DASHBOARD)
-                                }}>Entrar</Button>
+                                <Button
+                                    style={{ width: '157px' }}
+                                    onClick={() => {
+                                        navigate(PATH.DASHBOARD)
+                                    }}>
+                                    Entrar
+                                </Button>
                             </Group>
                         </>
                     }
