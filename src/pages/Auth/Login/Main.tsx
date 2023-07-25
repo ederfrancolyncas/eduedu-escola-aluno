@@ -12,10 +12,7 @@ export function LoginPage() {
     const [step, setStep] = useState(1)
     function nextStep(step) { setStep(step) }
 
-    function getFromChild01(childData) {
-        console.log('Chegou no pai', childData)
-        nextStep(2)
-    }
+    function getFromChild01() { nextStep(2) }
     return (
         <BackgroundImage src={bg} h="100vh" w="100vw">
             <Center maw={1200} h="100%" mx="auto">
