@@ -1,16 +1,17 @@
-import { PATH } from "~/constants/path";
-import { useNavigate } from "react-router-dom";
-import { Stack, Grid, Group, Card, Text, Center, Pagination, Button } from "@mantine/core"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "~/constants/path";
 import { useDisclosure } from '@mantine/hooks';
+import { useReserveStudent } from "~/api/school-class";
+import { errorNotification } from "~/utils/errorNotification";
+import { Stack, Grid, Group, Card, Text, Center, Pagination, Button } from "@mantine/core"
 import { ModalDuplicidadeLogin } from "./ModalDuplicidadeLogin";
 
 type componentsProps = {
     schoolClassId: string;
     students: Array<[]>;
-    sendToFather: any;
 }
-export function Step03({ schoolClassId, students, sendToFather }: componentsProps) {
+export function Step03({ schoolClassId, students }: componentsProps) {
     const navigate = useNavigate();
 
     const [modal, modalHandler] = useDisclosure(false);
@@ -20,12 +21,18 @@ export function Step03({ schoolClassId, students, sendToFather }: componentsProp
         setStudentId(studentId)
         modalHandler.open()
     }
-    function selectStudent() {
-        console.log('uepra')
-    }
-    function login() {
-        navigate(PATH.DASHBOARD)
-    }
+
+    const { mutate: reserveStudent } = useReserveStudent({
+        onError: (error) => {
+            errorNotification(
+                "Erro durante a operação",
+                `${error.message} (cod: ${error.code})`
+            );
+        },
+        onSuccess: () => {
+            navigate(PATH.DASHBOARD)
+        },
+    })
     return (
         <>
             <Card py={20} px={40}>
@@ -73,7 +80,7 @@ export function Step03({ schoolClassId, students, sendToFather }: componentsProp
             </Card>
             <Group position="right" mt="20px">
                 <Button
-                    onClick={() => login()}
+                    onClick={() => reserveStudent({ id: schoolClassId, studentId: studentId })}
                     disabled={!studentId.length}
                     style={{ width: '157px' }}
                 >

@@ -93,7 +93,6 @@ export function LoginPage() {
                         <Step03
                             schoolClassId={schoolClassId}
                             students={students}
-                            sendToFather={getDataFromChild}
                         />
                     }
                 </Box>
