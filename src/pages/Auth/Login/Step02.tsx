@@ -22,17 +22,18 @@ export function Step02({ schoolClasses, sendToFather }: componentsProps) {
         <Stack w={400} m="auto">
             <form onSubmit={form.onSubmit((schoolClass) => { sendToFather(3, schoolClass.id) })}>
                 <Select
+                    {...form.getInputProps('id')}
                     label="Turma"
                     placeholder="Selecione"
                     data={schoolClasses}
-                    {...form.getInputProps('id')}
                     styles={{
                         label: { color: "#fff", marginBottom: 6 },
                     }}
                 />
                 <Button
-                    fullWidth
                     type="submit"
+                    disabled={!form.isValid()}
+                    fullWidth
                     mt={20}
                 >
                     Entrar
