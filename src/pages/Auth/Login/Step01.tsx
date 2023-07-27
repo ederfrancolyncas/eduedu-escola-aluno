@@ -4,9 +4,12 @@ import { z } from "zod"
 import { errorNotification } from "~/utils/errorNotification"
 import { Stack, Button, TextInput } from "@mantine/core"
 
-export function Step01({ sendToFather }) {
+type componentsProps = {
+    sendToFather: any;
+}
+export function Step01({ sendToFather }: componentsProps) {
 
-    const { mutate: login, isLoading: isAuthenticating } = useAuthLogin({
+    const { mutate: login } = useAuthLogin({
         onError: (error) => {
             errorNotification(
                 "Erro durante a operação",
@@ -20,7 +23,7 @@ export function Step01({ sendToFather }) {
     })
     const form = useForm({
         initialValues: {
-            accessKey: 'EDUEDU030'
+            accessKey: ''
         },
         validate: zodResolver(formValidation)
     })
@@ -29,17 +32,19 @@ export function Step01({ sendToFather }) {
         <Stack w={400} m="auto">
             <form onSubmit={form.onSubmit((values) => { login(values) })}>
                 <TextInput
+                    {...form.getInputProps("accessKey")}
                     label="Código de acesso"
                     placeholder="Digite o código de acesso"
                     styles={{
                         label: { color: "#fff", marginBottom: 6 },
                     }}
-                    {...form.getInputProps("accessKey")}
                 />
                 <Button
+                    type="submit"
+                    disabled={!form.isValid()}
                     fullWidth
                     mt={20}
-                    type="submit">
+                >
                     Entrar
                 </Button>
             </form>
