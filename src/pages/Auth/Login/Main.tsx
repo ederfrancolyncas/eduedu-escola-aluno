@@ -1,13 +1,13 @@
-import { BackgroundImage, Image, Box, Center, TextInput, Select, Flex } from "@mantine/core";
 import { useState } from "react";
-import bg from "~/assets/bgs/bg-aluno.svg";
-import logo from "~/assets/logos/eduedu-branca.svg";
-import { Step01 } from "./Step01";
-import { Step02 } from "./Step02";
-import { Step03 } from "./Step03";
 import { useSchoolClassesAll } from "~/api/user";
 import { useStudentsBySchoolclass } from "~/api/school-class";
 import { errorNotification } from "~/utils/errorNotification";
+import { BackgroundImage, Image, Box, Center, TextInput, Select, Flex } from "@mantine/core";
+import logo from "~/assets/logos/eduedu-branca.svg";
+import bg from "~/assets/bgs/bg-aluno.svg";
+import { Step01 } from "./components/Step01";
+import { Step02 } from "./components/Step02";
+import { Step03 } from "./components/Step03";
 
 export function LoginPage() {
 
@@ -32,10 +32,7 @@ export function LoginPage() {
                 `${error.message} (cod: ${error.code})`
             );
         },
-        onSuccess: (data) => {
-            console.log(data)
-            setStudents(data)
-        },
+        onSuccess: (data) => { setStudents(data) },
     });
 
     // Managing data received from childs:
@@ -75,8 +72,8 @@ export function LoginPage() {
                             <TextInput
                                 mt="auto"
                                 mb="50px"
-                                label="Código de acesso"
-                                placeholder="Digite o código de acesso"
+                                label="Nome"
+                                placeholder="Pesquisar"
                                 styles={{
                                     label: { color: "#fff", marginBottom: 6 },
                                 }}
@@ -94,7 +91,7 @@ export function LoginPage() {
                     }
                     {step == 3 &&
                         <Step03
-                            schoolClasses={schoolClasses}
+                            schoolClassId={schoolClassId}
                             students={students}
                             sendToFather={getDataFromChild}
                         />
