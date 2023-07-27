@@ -13,23 +13,21 @@ export function Step01({ sendToFather }) {
                 `${error.message} (cod: ${error.code})`
             )
         },
-        onSuccess: (data) => {
-            sendToFather(data)
-        }
+        onSuccess: () => { sendToFather(2) }
     })
     const formValidation = z.object({
         accessKey: z.string().min(1, "Insira um código de acesso")
     })
     const form = useForm({
         initialValues: {
-            accessKey: ''
+            accessKey: 'EDUEDU030'
         },
         validate: zodResolver(formValidation)
     })
 
     return (
-        <form onSubmit={form.onSubmit((values) => { login(values) })}>
-            <Stack>
+        <Stack w={400} m="auto">
+            <form onSubmit={form.onSubmit((values) => { login(values) })}>
                 <TextInput
                     label="Código de acesso"
                     placeholder="Digite o código de acesso"
@@ -38,8 +36,13 @@ export function Step01({ sendToFather }) {
                     }}
                     {...form.getInputProps("accessKey")}
                 />
-                <Button type="submit">Entrar</Button>
-            </Stack>
-        </form>
+                <Button
+                    fullWidth
+                    mt={20}
+                    type="submit">
+                    Entrar
+                </Button>
+            </form>
+        </Stack>
     )
 }
