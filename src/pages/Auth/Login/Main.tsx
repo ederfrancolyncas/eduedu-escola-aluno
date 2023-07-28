@@ -39,7 +39,6 @@ export function LoginPage() {
     function getDataFromChild(step: number, schoolClassIdChild: string) {
         nextStep(step)
         setSchoolClassId(schoolClassIdChild)
-
         step == 3 ? studentsList({ id: schoolClassIdChild }) : {}
     }
 
@@ -54,6 +53,7 @@ export function LoginPage() {
                                 mb="50px"
                                 label="Turma"
                                 placeholder="Selecione"
+                                value={schoolClassId ? schoolClassId : ''}
                                 data={schoolClassesOptions}
                                 styles={{
                                     label: { color: "#fff", marginBottom: 6 },
