@@ -1,11 +1,15 @@
 import { MantineProvider, MantineThemeOverride } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
+import { DividerStyles, TextStyles } from "~/styles"
 
 const theme: MantineThemeOverride = {
   fontFamily: "Inter, sans-serif",
 
-  components: {},
+  components: {
+    DividerStyles,
+    TextStyles
+  },
 
   globalStyles() {
     return {};
