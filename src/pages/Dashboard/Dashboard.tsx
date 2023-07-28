@@ -1,4 +1,4 @@
-import { BackgroundImage } from "@mantine/core";
+import { BackgroundImage, Container } from "@mantine/core";
 import bg from "~/assets/bgs/bg-dashboard.svg";
 import { Planets } from "./Planets";
 import { Badges } from "./Badges";
@@ -6,8 +6,10 @@ import { Badges } from "./Badges";
 export function DashboardPage() {
     return (
         <BackgroundImage src={bg} h="100vh">
-            <Planets />
-            <Badges />
+            <Container size="xl" mt={50}>
+                <Planets />
+                <Badges />
+            </Container>
         </BackgroundImage >
     )
 }

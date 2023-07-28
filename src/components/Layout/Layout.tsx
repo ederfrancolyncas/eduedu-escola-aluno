@@ -8,6 +8,7 @@ export function Layout() {
     <AppShell
       header={<Navbar />}
       footer={<Footer />}
+      padding={0}
     >
       <Stack>
         <Outlet />
