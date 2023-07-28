@@ -24,7 +24,7 @@ export class SchoolClassAPI extends API {
         return data
     }
     static async reserveStudent(id: string, studentId: string) {
-        const { data } = await this.api.patch(URL.RESERVE_STUDENT(id, studentId))
+        const { data } = await this.api.patch(URL.RESERVE_STUDENT(id, studentId), { reserved: true })
         return data
     }
 }
