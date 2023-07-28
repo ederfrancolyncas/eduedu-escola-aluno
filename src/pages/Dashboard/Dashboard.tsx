@@ -1,5 +1,5 @@
 import { BackgroundImage, Container } from "@mantine/core";
-import bg from "~/assets/bgs/bg-dashboard.svg";
+import bg from "~/assets/bgs/bg-dashboard.jpg";
 import { Planets } from "./Planets";
 import { Badges } from "./Badges";
 
