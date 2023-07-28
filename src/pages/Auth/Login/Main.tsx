@@ -92,7 +92,7 @@ export function LoginPage() {
                     {step == 3 &&
                         <Step03
                             schoolClassId={schoolClassId}
-                            students={students}
+                            students={students.items}
                         />
                     }
                 </Box>
