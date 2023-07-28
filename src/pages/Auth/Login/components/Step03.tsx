@@ -53,7 +53,7 @@ export function Step03({ schoolClassId, students }: componentsProps) {
                                     padding: '10px 20px',
                                     height: '100%',
                                     width: '100%',
-                                    display: 'block',
+                                    display: 'flex',
                                 }}
                                 styles={{
                                     root: {
@@ -65,8 +65,12 @@ export function Step03({ schoolClassId, students }: componentsProps) {
                                 }}
                             >
                                 <Stack>
-                                    <Text fz="lg" c="blue.6">{student.name}</Text>
-                                    <Text fz="md" c="dimmed">{student.registry}</Text>
+                                    <Text fz="lg" c="blue.6" style={{ lineHeight: 1 }} >
+                                        {student.name}
+                                    </Text>
+                                    <Text fz="md" c="dimmed">
+                                        {student.registry}
+                                    </Text>
                                 </Stack>
                             </Button>
                         </Grid.Col>
