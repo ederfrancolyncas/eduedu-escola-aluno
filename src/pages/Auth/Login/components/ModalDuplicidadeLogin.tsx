@@ -1,4 +1,4 @@
-import { Group, Modal, Text, Button, Stack, Divider } from "@mantine/core";
+import { Modal, Group, Text, Button, Stack, Divider } from "@mantine/core";
 
 type Props = {
     opened: boolean;
@@ -12,19 +12,18 @@ export function ModalDuplicidadeLogin({ opened, onClose }: Props) {
             opened={opened}
             onClose={onClose}
             radius="md"
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
         >
             <Stack>
-                <Text>
+                <Text size="sm">
                     Essa ação vai desativar o login anterior.
                     O aluno selecionado está ativo em outro computador.
                 </Text>
-                <Text>
+                <Text size="sm">
                     Deseja continuar?
                 </Text>
                 <Divider />
                 <Group position="right">
-                    <Button>Não</Button>
+                    <Button variant="outline" onClick={() => onClose()}>Não</Button>
                     <Button>Sim</Button>
                 </Group>
             </Stack>
