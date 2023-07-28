@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { Box, Title, Button, Image } from "@mantine/core";
-import example from "~/assets/planets/e1.png";
+import planetE1 from "~/assets/planets/planet-e1.png";
+import planetE3 from "~/assets/planets/planet-e3.png";
+import planetF1 from "~/assets/planets/planet-f1.png";
+import planetF6 from "~/assets/planets/planet-f6.png";
+import planetG1 from "~/assets/planets/planet-g1.png";
+import planetH1 from "~/assets/planets/planet-h1.png";
 import star from "~/assets/planets/star.png";
 import arrowLeft from "~/assets/planets/arrowLeft.png";
 import arrowRight from "~/assets/planets/arrowRight.png";
@@ -9,39 +14,39 @@ import arrowRight from "~/assets/planets/arrowRight.png";
 export function Planets() {
     const planets = [
         {
-            image: example,
+            image: planetE1,
             name: 'João-de-barro',
             stars: 2,
             link: ''
         },
         {
-            image: example,
+            image: planetF1,
             name: 'Pica-Pau',
-            stars: 2,
+            stars: 4,
             link: ''
         },
         {
-            image: example,
+            image: planetG1,
             name: 'Sopa de Pedra',
-            stars: 2,
+            stars: 1,
             link: ''
         },
         {
-            image: example,
+            image: planetH1,
             name: 'Plim-Plim',
-            stars: 2,
+            stars: 5,
             link: ''
         },
         {
-            image: example,
+            image: planetE3,
             name: 'Toc-Toc',
-            stars: 2,
+            stars: 0,
             link: ''
         },
         {
-            image: example,
+            image: planetF6,
             name: 'Shuá',
-            stars: 2,
+            stars: 0,
             link: ''
         }
     ]
@@ -73,6 +78,7 @@ export function Planets() {
                     <Image src={arrowRight} />
                 </Button>
             </Box>
+
             <Carousel
                 loop
                 align="start"
@@ -86,19 +92,21 @@ export function Planets() {
                 {planets &&
                     planets.map((planet) => (
                         <Carousel.Slide gap="sm" size="10%">
-                            <Box style={{ position: 'relative', height: '265px', width: '200px' }}>
-                                <Image
+                            <Box style={{ position: 'relative', height: '270px', width: '200px' }}>
+                                <img
                                     src={planet.image}
                                     style={{
                                         position: 'absolute',
                                         top: 0,
                                         left: 0,
-                                        right: 10,
+                                        right: 15,
                                         bottom: 0,
-                                        margin: 'auto',
-                                        zIndex: '1'
+                                        margin: '0 auto',
+                                        zIndex: '1',
+                                        height: 100,
+                                        width: 'auto'
                                     }}
-                                    width={110} />
+                                />
                                 <Box
                                     style={{
                                         position: 'absolute',
@@ -111,7 +119,7 @@ export function Planets() {
                                         backdropFilter: 'blur(5px)',
                                     }}
                                 >
-                                    <Title c="white" order={6}>{planet.name}</Title>
+                                    <Title mt={50} c="white" order={6}>{planet.name}</Title>
                                     <Image src={star} width={20} my={25} />
                                     <Button fullWidth variant="outline">Tentar de novo</Button>
                                 </Box>
