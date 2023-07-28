@@ -6,6 +6,7 @@ type Props = {
 };
 
 export function ModalDuplicidadeLogin({ opened, onClose }: Props) {
+    function signOutStudent() { onClose() }
     return (
         <Modal
             title="Atenção - Duplicidade de Login"
@@ -24,7 +25,7 @@ export function ModalDuplicidadeLogin({ opened, onClose }: Props) {
                 <Divider />
                 <Group position="right">
                     <Button variant="outline" onClick={() => onClose()}>Não</Button>
-                    <Button>Sim</Button>
+                    <Button onClick={signOutStudent}>Sim</Button>
                 </Group>
             </Stack>
         </Modal>
