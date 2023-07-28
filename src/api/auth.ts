@@ -6,17 +6,12 @@ import { useUserStore } from "~/stores/user";
 import { decodeJwt } from "~/utils/decodeJwt";
 import { z } from "zod";
 
-export type UserLogin = Pick<UserAuth, "email" | "password">;
-export type RequestPasswordResetInput = Pick<UserAuth, "email">;
-export type UserChangePassword = Pick<
-  UserAuth,
-  "token" | "password" | "passwordConfirmation"
->;
-
+const URL = {
+  AUTH_ACCESS_KEY: "/auth/access-key",
+};
+export type UserLogin = Pick<UserAuth, "accessKey">;
 type UserAuth = {
-  email?: string;
-  password?: string;
-  passwordConfirmation?: string;
+  accessKey?: string;
   token?: string;
 };
 
@@ -27,26 +22,9 @@ export type LoginResponse = {
   document: string;
   accessToken: string;
 };
-
-const URL = {
-  AUTH: "/auth",
-  RESET_PASSWORD: "/auth/reset-password",
-  CHANGE_PASSWORD: "/auth/change-password",
-};
-
 class AuthAPI extends API {
-  static async login(input?: UserLogin) {
-    const { data } = await this.api.post<LoginResponse>(URL.AUTH, input);
-    return data;
-  }
-
-  static async requestPasswordReset(input?: RequestPasswordResetInput) {
-    const { data } = await this.api.post(URL.RESET_PASSWORD, input);
-    return data;
-  }
-
-  static async changePassword(params?: UserChangePassword) {
-    const { data } = await this.api.post(URL.CHANGE_PASSWORD, params);
+  static async loginAccessKey(input?: UserLogin) {
+    const { data } = await this.api.post(URL.AUTH_ACCESS_KEY, input);
     return data;
   }
 }
@@ -55,7 +33,7 @@ export function useAuthLogin(
   options?: MutationOptions<UserLogin, LoginResponse>
 ) {
   const handler = useCallback(function (data: UserLogin) {
-    return AuthAPI.login(data);
+    return AuthAPI.loginAccessKey(data);
   }, []);
 
   return useMutation(handler, {
@@ -64,38 +42,15 @@ export function useAuthLogin(
     onSuccess: (data, vars, ctx) => {
       const tokenValidation = z.object({
         email: z.string().email(),
-        profile: z.enum(["DIRECTOR", "TEACHER"]),
         iat: z.number(),
       });
 
-      const token = decodeJwt(data.accessToken) as z.infer<
-        typeof tokenValidation
-      >;
+      const token = decodeJwt(data.accessToken) as z.infer<typeof tokenValidation>;
 
       tokenValidation.parse(token);
 
-      useUserStore.setState({ ...data, profile: token.profile });
+      useUserStore.setState({ ...data });
       options?.onSuccess?.(data, vars, ctx);
     },
   });
-}
-
-export function useRequestPasswordReset(
-  options?: MutationOptions<RequestPasswordResetInput, UserAuth>
-) {
-  const handler = useCallback(function (data: RequestPasswordResetInput) {
-    return AuthAPI.requestPasswordReset(data);
-  }, []);
-
-  return useMutation(handler, options);
-}
-
-export function useUserChangePassword(
-  options?: MutationOptions<UserChangePassword, UserAuth>
-) {
-  const handler = useCallback(function (data: UserChangePassword) {
-    return AuthAPI.changePassword(data);
-  }, []);
-
-  return useMutation(handler, options);
 }
