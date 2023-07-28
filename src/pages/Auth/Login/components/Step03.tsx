@@ -6,6 +6,7 @@ import { useReserveStudent } from "~/api/school-class";
 import { errorNotification } from "~/utils/errorNotification";
 import { Stack, Grid, Group, Card, Text, Center, Pagination, Button } from "@mantine/core"
 import { ModalDuplicidadeLogin } from "./ModalDuplicidadeLogin";
+import { useGetStudent } from "~/api/student";
 
 type componentsProps = {
     schoolClassId: string;
@@ -22,7 +23,7 @@ export function Step03({ schoolClassId, students }: componentsProps) {
         modalHandler.open()
     }
 
-    const { mutate: reserveStudent } = useReserveStudent({
+    const { mutate: getStudentData } = useGetStudent({
         onError: (error) => {
             errorNotification(
                 "Erro durante a operação",
@@ -32,6 +33,15 @@ export function Step03({ schoolClassId, students }: componentsProps) {
         onSuccess: () => {
             navigate(PATH.DASHBOARD)
         },
+    })
+    const { mutate: reserveStudent } = useReserveStudent({
+        onError: (error) => {
+            errorNotification(
+                "Erro durante a operação",
+                `${error.message} (cod: ${error.code})`
+            );
+        },
+        onSuccess: () => { getStudentData(studentId) },
     })
     return (
         <>

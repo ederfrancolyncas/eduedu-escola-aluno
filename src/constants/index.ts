@@ -1,3 +1,5 @@
+import { SchoolGrade, SchoolPeriod } from "~/api/school-class";
+
 export const USER_PROFILE = {
   DIRECTOR: "Direção/Coordenação",
   TEACHER: "Professor",
@@ -48,6 +50,19 @@ export const monthsAbbreviation = [
   "Nov",
   "Dez",
 ];
+
+export const SCHOOL_GRADE: Record<SchoolGrade, string> = {
+  CHILDREN: "Infantil",
+  FIRST_GRADE: "1º Ano Fundamental",
+  SECOND_GRADE: "2º Ano Fundamental",
+  THIRD_GRADE: "3º Ano Fundamental",
+} as const;
+
+export const SCHOOL_PERIOD: Record<SchoolPeriod, string> = {
+  MORNING: "Manhã",
+  AFTERNOON: "Tarde",
+  FULL: "Integral",
+} as const;
 
 export const AXIS_ENUM = {
   PHONOLOGICAL_AWARENESS: 'Consciência fonológica',

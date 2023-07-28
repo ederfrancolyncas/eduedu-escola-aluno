@@ -18,6 +18,13 @@ type ReserveStudent = {
     studentId: string;
 };
 
+export type SchoolGrade =
+    | "CHILDREN"
+    | "FIRST_GRADE"
+    | "SECOND_GRADE"
+    | "THIRD_GRADE";
+export type SchoolPeriod = "MORNING" | "AFTERNOON" | "FULL";
+
 export class SchoolClassAPI extends API {
     static async getStudentsById(id: string) {
         const { data } = await this.api.get<SchoolClass>(URL.GET_STUDENTS_BY_ID(id))
