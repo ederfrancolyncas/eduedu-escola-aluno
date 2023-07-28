@@ -1,4 +1,5 @@
-import { Carousel } from '@mantine/carousel';
+import { useState } from 'react';
+import { Carousel, Embla } from '@mantine/carousel';
 import { Box, Title, Button, Image } from "@mantine/core";
 import example from "~/assets/planets/e1.png";
 import star from "~/assets/planets/star.png";
@@ -44,9 +45,34 @@ export function Planets() {
             link: ''
         }
     ]
+
+    const [embla, setEmbla] = useState<Embla>();
     return (
         <Box mb={50}>
             <Title mb={40} c="white">Meus planetas</Title>
+
+            <Box style={{ position: 'relative' }}>
+                <Button
+                    style={{
+                        background: 'transparent',
+                        position: 'absolute',
+                        top: 130,
+                        left: -100
+                    }}
+                    onClick={() => embla?.scrollPrev()}>
+                    <Image src={arrowLeft} />
+                </Button>
+                <Button
+                    style={{
+                        background: 'transparent',
+                        position: 'absolute',
+                        top: 130,
+                        right: -50
+                    }}
+                    onClick={() => embla?.scrollNext()}>
+                    <Image src={arrowRight} />
+                </Button>
+            </Box>
             <Carousel
                 loop
                 align="start"
@@ -54,9 +80,8 @@ export function Planets() {
                     { maxWidth: 'md', slideSize: '50%' },
                     { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
                 ]}
-                controlsOffset="xl"
-                nextControlIcon={<Image src={arrowRight} />}
-                previousControlIcon={<Image src={arrowLeft} />}
+                getEmblaApi={setEmbla}
+                withControls={false}
             >
                 {planets &&
                     planets.map((planet) => (
