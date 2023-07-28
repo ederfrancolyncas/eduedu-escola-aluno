@@ -1,8 +1,9 @@
 import { Carousel } from '@mantine/carousel';
 import { Box, Title, Button, Image } from "@mantine/core";
-import { Icon123 } from '@tabler/icons-react';
-import example from "~/assets/dashboard/e1.png";
-import star from "~/assets/dashboard/star.png";
+import example from "~/assets/planets/e1.png";
+import star from "~/assets/planets/star.png";
+import arrowLeft from "~/assets/planets/arrowLeft.png";
+import arrowRight from "~/assets/planets/arrowRight.png";
 
 export function Planets() {
     const planets = [
@@ -44,49 +45,56 @@ export function Planets() {
         }
     ]
     return (
-        <>
+        <Box mb={50}>
             <Title mb={40} c="white">Meus planetas</Title>
             <Carousel
-                height={600}
-                slideSize="10%"
-                slideGap="lg"
                 loop
                 align="start"
                 breakpoints={[
                     { maxWidth: 'md', slideSize: '50%' },
                     { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
                 ]}
-                nextControlIcon={<Icon123 size={16} />}
-                previousControlIcon={<Icon123 size={16} />}
+                controlsOffset="xl"
+                nextControlIcon={<Image src={arrowRight} />}
+                previousControlIcon={<Image src={arrowLeft} />}
             >
                 {planets &&
                     planets.map((planet) => (
-                        <Carousel.Slide>
-                            <Image
-                                src={planet.image}
-                                style={{
-                                    bottom: '10px',
-                                    margin: 'auto'
-                                }}
-                                width={110} />
-                            <Box
-                                style={{
-                                    textAlign: 'center',
-                                    padding: '20px',
-                                    background: 'rgba(255, 255, 255, 0.18)',
-                                    borderRadius: '16px',
-                                    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                                    backdropFilter: 'blur(5px)',
-                                }}
-                            >
-                                <Title c="white" order={6}>{planet.name}</Title>
-                                <Image src={star} width={20} my={25} />
-                                <Button fullWidth variant="outline">Tentar de novo</Button>
+                        <Carousel.Slide gap="sm" size="10%">
+                            <Box style={{ position: 'relative', height: '265px', width: '200px' }}>
+                                <Image
+                                    src={planet.image}
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        right: 10,
+                                        bottom: 0,
+                                        margin: 'auto',
+                                        zIndex: '1'
+                                    }}
+                                    width={110} />
+                                <Box
+                                    style={{
+                                        position: 'absolute',
+                                        bottom: 0,
+                                        textAlign: 'center',
+                                        padding: '20px',
+                                        background: 'rgba(255, 255, 255, 0.08)',
+                                        borderRadius: '16px',
+                                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+                                        backdropFilter: 'blur(5px)',
+                                    }}
+                                >
+                                    <Title c="white" order={6}>{planet.name}</Title>
+                                    <Image src={star} width={20} my={25} />
+                                    <Button fullWidth variant="outline">Tentar de novo</Button>
+                                </Box>
                             </Box>
                         </Carousel.Slide>
                     ))
                 }
             </Carousel>
-        </>
+        </Box>
     )
 }
