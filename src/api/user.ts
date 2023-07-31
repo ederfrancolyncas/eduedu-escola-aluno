@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { API } from "./base";
-import { Paginated } from "./api-types";
-import { useQuery } from "@tanstack/react-query";
+import { MutationOptions, Paginated, QueryOptions } from "./api-types";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const KEY = {
     SCHOOL_CLASSES_ALL: 'SCHOOL_CLASSES_ALL'
@@ -48,4 +48,15 @@ export function useSchoolClassesAll(
     );
 
     return useQuery([KEY.SCHOOL_CLASSES_ALL, options?.search], handler, options);
+}
+
+export function useSchoolClassesAllMutation(
+    options?: MutationOptions
+) {
+    const handler = useCallback(function () {
+        return UserAPI.getSchoolClassesAll();
+    },
+        []);
+
+    return useMutation(handler, options);
 }
