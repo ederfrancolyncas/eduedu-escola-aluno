@@ -5,7 +5,7 @@ import {
   Text,
   Group,
   createStyles,
-  Box,
+  Flex,
 } from "@mantine/core";
 import logo from "~/assets/logos/eduedu-azul.svg";
 import { SCHOOL_GRADE, SCHOOL_PERIOD } from "../../constants";
@@ -57,12 +57,12 @@ export function Navbar() {
         <Group noWrap>
           <Group spacing={16}>
             {links.map((link) => (
-              <Box key={link.id}>
-                <Text color="dark.5" td="none" weight={600} size={14}>
+              <Flex key={link.id}>
+                <Text color="dark.5" td="none" weight={600} size={14} pr={10}>
                   {link.label}
                 </Text>
-                <Text>{link.value}</Text>
-              </Box>
+                <Text size={14}>{link.value}</Text>
+              </Flex>
             ))}
           </Group>
         </Group>

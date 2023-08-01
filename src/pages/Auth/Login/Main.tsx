@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSchoolClassesAll } from "~/api/user";
+import { useSchoolClassesAllMutation } from "~/api/user";
 import { useStudentsBySchoolclass } from "~/api/school-class";
 import { errorNotification } from "~/utils/errorNotification";
 import {
@@ -26,12 +26,22 @@ export function LoginPage() {
 
   // SchoolClasses:
   const [schoolClassId, setSchoolClassId] = useState("");
-  const { data: schoolClasses } = useSchoolClassesAll();
-  const schoolClassesOptions =
-    schoolClasses?.map((item) => ({
-      label: item.name,
-      value: item.id,
-    })) ?? [];
+  const [schoolClassesOptions, setSchoolClassesOptions] = useState([]);
+  const { mutate: getSchoolClasses } = useSchoolClassesAllMutation({
+    onError: (error) => {
+      errorNotification(
+        "Erro durante a operação",
+        `${error.message} (cod: ${error.code})`
+      );
+    },
+    onSuccess: (data) => {
+      let sc = data?.map((item) => ({
+        label: item.name,
+        value: item.id,
+      })) ?? [];
+      setSchoolClassesOptions(sc)
+    },
+  });
 
   // Students:
   const [students, setStudents] = useState([]);
@@ -42,16 +52,18 @@ export function LoginPage() {
         `${error.message} (cod: ${error.code})`
       );
     },
-    onSuccess: (data) => {
-      setStudents(data);
-    },
+    onSuccess: (data) => { setStudents(data) },
   });
 
   // Managing data received from childs:
   function getDataFromChild(step: number, schoolClassIdChild: string) {
     nextStep(step);
     setSchoolClassId(schoolClassIdChild);
+    step == 2 ? getSchoolClasses() : {};
     step == 3 ? studentsList({ id: schoolClassIdChild }) : {};
+  }
+  function updateList() {
+    studentsList({ id: schoolClassId })
   }
 
   return (
@@ -65,6 +77,10 @@ export function LoginPage() {
                 mb="50px"
                 label="Turma"
                 placeholder="Selecione"
+                onChange={(value) => {
+                  setSchoolClassId(value)
+                  studentsList({ id: value })
+                }}
                 value={schoolClassId ? schoolClassId : ""}
                 data={schoolClassesOptions}
                 styles={{
@@ -100,7 +116,11 @@ export function LoginPage() {
             />
           )}
           {step == 3 && (
-            <Step03 schoolClassId={schoolClassId} students={students.items} />
+            <Step03
+              schoolClassId={schoolClassId}
+              students={students}
+              updateStudentsList={updateList}
+            />
           )}
         </Box>
       </Center>
