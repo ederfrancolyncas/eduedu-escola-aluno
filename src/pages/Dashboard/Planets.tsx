@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { Box, Title, Button, Image } from "@mantine/core";
-import star from "~/assets/planets/star.png";
 import arrowLeft from "~/assets/planets/arrowLeft.png";
 import arrowRight from "~/assets/planets/arrowRight.png";
+
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 
 type componentProps = {
     planets: Array[];
 }
 export function Planets({ planets }: componentProps) {
-
+    console.log(planets)
     const [embla, setEmbla] = useState<Embla>();
+
     return (
         <Box mb={50}>
             <Title mb={40} c="white">Meus planetas</Title>
@@ -78,9 +81,15 @@ export function Planets({ planets }: componentProps) {
                                         backdropFilter: 'blur(5px)',
                                     }}
                                 >
-                                    <Title mt={50} c="white" order={6}>{planet.name}</Title>
-                                    <Image src={star} width={20} my={25} />
-                                    <Button fullWidth variant="outline">Tentar de novo</Button>
+                                    <Title mt={50} c="white" order={6}>{planet.planetName}</Title>
+                                    <Rating readOnly value={[planet.stars]} key={[planet.stars]} />
+                                    <Button
+                                        mt={20}
+                                        fullWidth
+                                        variant="outline"
+                                    >
+                                        Tentar de novo
+                                    </Button>
                                 </Box>
                             </Box>
                         </Carousel.Slide>
