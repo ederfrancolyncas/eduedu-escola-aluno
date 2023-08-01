@@ -15,8 +15,18 @@ export function ExamLayout() {
       styles={{ main: { padding: 0, position: "relative" } }}
     >
       <Center>
-        <BackgroundImage src={lousa} w={1140} h={846} mt={10}>
-          <Center h="100%">
+        <BackgroundImage
+          src={lousa}
+          w={1140}
+          h={846}
+          mt={10}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Center h="80%" mt={55}>
             <Outlet />
           </Center>
         </BackgroundImage>
