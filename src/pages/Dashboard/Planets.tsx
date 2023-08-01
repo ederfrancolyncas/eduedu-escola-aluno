@@ -1,55 +1,14 @@
 import { useState } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { Box, Title, Button, Image } from "@mantine/core";
-import planetE1 from "~/assets/planets/planet-e1.png";
-import planetE3 from "~/assets/planets/planet-e3.png";
-import planetF1 from "~/assets/planets/planet-f1.png";
-import planetF6 from "~/assets/planets/planet-f6.png";
-import planetG1 from "~/assets/planets/planet-g1.png";
-import planetH1 from "~/assets/planets/planet-h1.png";
 import star from "~/assets/planets/star.png";
 import arrowLeft from "~/assets/planets/arrowLeft.png";
 import arrowRight from "~/assets/planets/arrowRight.png";
 
-export function Planets() {
-    const planets = [
-        {
-            image: planetE1,
-            name: 'João-de-barro',
-            stars: 2,
-            link: ''
-        },
-        {
-            image: planetF1,
-            name: 'Pica-Pau',
-            stars: 4,
-            link: ''
-        },
-        {
-            image: planetG1,
-            name: 'Sopa de Pedra',
-            stars: 1,
-            link: ''
-        },
-        {
-            image: planetH1,
-            name: 'Plim-Plim',
-            stars: 5,
-            link: ''
-        },
-        {
-            image: planetE3,
-            name: 'Toc-Toc',
-            stars: 0,
-            link: ''
-        },
-        {
-            image: planetF6,
-            name: 'Shuá',
-            stars: 0,
-            link: ''
-        }
-    ]
+type componentProps = {
+    planets: Array[];
+}
+export function Planets({ planets }: componentProps) {
 
     const [embla, setEmbla] = useState<Embla>();
     return (
@@ -94,7 +53,7 @@ export function Planets() {
                         <Carousel.Slide gap="sm" size="10%">
                             <Box style={{ position: 'relative', height: '270px', width: '200px' }}>
                                 <img
-                                    src={planet.image}
+                                    src={planet.planetAvatar}
                                     style={{
                                         position: 'absolute',
                                         top: 0,
