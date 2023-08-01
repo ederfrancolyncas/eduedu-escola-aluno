@@ -34,6 +34,10 @@ export class SchoolClassAPI extends API {
         const { data } = await this.api.patch(URL.RESERVE_STUDENT(id, studentId), { reserved: true })
         return data
     }
+    static async unreserveStudent(id: string, studentId: string) {
+        const { data } = await this.api.patch(URL.RESERVE_STUDENT(id, studentId), { reserved: false })
+        return data
+    }
 }
 
 export function useStudentsBySchoolclass(
@@ -66,6 +70,26 @@ export function useReserveStudent(
         studentId: string;
     }) {
         return SchoolClassAPI.reserveStudent(data.id, data.studentId)
+    },
+        []);
+
+    return useMutation(handler, options);
+}
+
+export function useUnreserveStudent(
+    options?: MutationOptions<
+        {
+            id: string,
+            studentId: string,
+        },
+        ReserveStudent
+    >
+) {
+    const handler = useCallback(function (data: {
+        id: string;
+        studentId: string;
+    }) {
+        return SchoolClassAPI.unreserveStudent(data.id, data.studentId)
     },
         []);
 

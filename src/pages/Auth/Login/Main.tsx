@@ -52,9 +52,7 @@ export function LoginPage() {
         `${error.message} (cod: ${error.code})`
       );
     },
-    onSuccess: (data) => {
-      setStudents(data);
-    },
+    onSuccess: (data) => { setStudents(data) },
   });
 
   // Managing data received from childs:
@@ -63,6 +61,9 @@ export function LoginPage() {
     setSchoolClassId(schoolClassIdChild);
     step == 2 ? getSchoolClasses() : {};
     step == 3 ? studentsList({ id: schoolClassIdChild }) : {};
+  }
+  function updateList() {
+    studentsList({ id: schoolClassId })
   }
 
   return (
@@ -78,7 +79,7 @@ export function LoginPage() {
                 placeholder="Selecione"
                 onChange={(value) => {
                   setSchoolClassId(value)
-                  studentsList({ id: schoolClassId })
+                  studentsList({ id: value })
                 }}
                 value={schoolClassId ? schoolClassId : ""}
                 data={schoolClassesOptions}
@@ -115,7 +116,11 @@ export function LoginPage() {
             />
           )}
           {step == 3 && (
-            <Step03 schoolClassId={schoolClassId} students={students.items} />
+            <Step03
+              schoolClassId={schoolClassId}
+              students={students}
+              updateStudentsList={updateList}
+            />
           )}
         </Box>
       </Center>
