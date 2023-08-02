@@ -4,11 +4,12 @@ import { Planets } from "./Planets";
 import { Badges } from "./Badges";
 import { errorNotification } from "~/utils/errorNotification";
 import { useState } from "react";
-import { useGetStudentPlanetTrackQuery } from "~/api/student";
+import { useGetStudentAwardsQuery, useGetStudentPlanetTrackQuery } from "~/api/student";
 
 export function DashboardPage() {
 
     const [planetTrack, setPlanetTrack] = useState([])
+    const [awards, setAwards] = useState([])
 
     const { data: getPlanetTrack } = useGetStudentPlanetTrackQuery({
         onError: (error) => {
@@ -22,12 +23,22 @@ export function DashboardPage() {
         },
     })
 
-
+    const { data: getAwards } = useGetStudentAwardsQuery({
+        onError: (error) => {
+            errorNotification(
+                "Erro durante a operação",
+                `${error.message} (cod: ${error.code})`
+            );
+        },
+        onSuccess: (data) => {
+            setAwards(data.awards)
+        },
+    })
     return (
         <BackgroundImage src={bg} h="100vh">
             <Container size="xl" mt={50}>
                 <Planets planets={planetTrack} />
-                <Badges />
+                <Badges awards={awards} />
             </Container>
         </BackgroundImage >
     )

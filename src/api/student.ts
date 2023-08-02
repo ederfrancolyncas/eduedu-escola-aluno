@@ -20,11 +20,13 @@ export type Student = {
 };
 
 const KEY = {
-    GET_STUDENT_PLANET_TRACK: 'GET_STUDENT_PLANET_TRACK'
+    GET_STUDENT_PLANET_TRACK: 'GET_STUDENT_PLANET_TRACK',
+    GET_STUDENT_AWARDS: 'GET_STUDENT_AWARDS'
 }
 const URL = {
     GET_STUDENT: (id: string) => `student/${id}`,
     GET_STUDENT_PLANET_TRACK: (id: string) => `student/${id}/planet-track`,
+    GET_STUDENT_AWARDS: (id: string) => `student/${id}/awards`,
 }
 
 // RESERVED STUDENT:
@@ -37,6 +39,10 @@ export class StudentAPI extends API {
     }
     static async getStudentPlanetTrack(id: string) {
         const { data } = await this.api.get(URL.GET_STUDENT_PLANET_TRACK(id));
+        return data;
+    }
+    static async getStudentAwards(id: string) {
+        const { data } = await this.api.get(URL.GET_STUDENT_AWARDS(id));
         return data;
     }
 }
@@ -82,4 +88,17 @@ export function useGetStudentPlanetTrackQuery(
     );
 
     return useQuery([KEY.GET_STUDENT_PLANET_TRACK, options?.search], handler, options);
+}
+
+export function useGetStudentAwardsQuery(
+    options?: QueryOptions
+) {
+    const handler = useCallback(
+        function () {
+            return StudentAPI.getStudentAwards(reservedStudent.id);
+        },
+        []
+    );
+
+    return useQuery([KEY.GET_STUDENT_AWARDS, options?.search], handler, options);
 }
