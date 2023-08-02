@@ -4,7 +4,7 @@ import { AWARDS } from '../../constants/awards'
 type componentProps = {
     awards: Array[]
 }
-export function Badges({ awards }: componentProps) {
+export function Awards({ awards }: componentProps) {
 
     return (
         <>

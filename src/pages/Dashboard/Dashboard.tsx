@@ -1,7 +1,7 @@
 import { BackgroundImage, Container } from "@mantine/core";
 import bg from "~/assets/bgs/bg-dashboard.jpg";
 import { Planets } from "./Planets";
-import { Badges } from "./Badges";
+import { Awards } from "./Awards";
 import { errorNotification } from "~/utils/errorNotification";
 import { useState } from "react";
 import { useGetStudentAwardsQuery, useGetStudentPlanetTrackQuery } from "~/api/student";
@@ -38,7 +38,7 @@ export function DashboardPage() {
         <BackgroundImage src={bg} h="100vh">
             <Container size="xl" mt={50}>
                 <Planets planets={planetTrack} />
-                <Badges awards={awards} />
+                <Awards awards={awards} />
             </Container>
         </BackgroundImage >
     )
