@@ -11,7 +11,6 @@ type componentProps = {
     planets: Array[];
 }
 export function Planets({ planets }: componentProps) {
-    console.log(planets)
     const [embla, setEmbla] = useState<Embla>();
 
     return (
