@@ -82,7 +82,10 @@ export function Step03({ schoolClassId, students, updateStudentsList }: componen
                                     }}
                                     styles={{
                                         root: {
-                                            background: student.reserved ? '#E9ECEF' : '#FFF',
+                                            background:
+                                                student.reserved ? '#E9ECEF'
+                                                    :
+                                                    (student.id == studentId ? "#E7F5FF" : '#FFF'),
                                             "&:hover": {
                                                 background: student.reserved ? '#B8BCC1' : '#E7F5FF'
                                             }
